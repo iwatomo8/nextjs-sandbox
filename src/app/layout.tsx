@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/default-ogp.jpg`,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/snowman_yukidaruma_toketa.png`,
         width: 1200,
         height: 630,
         alt: "Next.js Sandbox App",
