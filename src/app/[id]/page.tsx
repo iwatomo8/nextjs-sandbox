@@ -1,5 +1,8 @@
 import { getImageInfoById, getImageUrl } from "@/utils/imageMapping";
-import type { Metadata } from "next/dist/lib/metadata/types/metadata-interface";
+import type {
+  Metadata,
+  ResolvingMetadata,
+} from "next/dist/lib/metadata/types/metadata-interface";
 import Image from "next/image";
 
 type Props = {
@@ -7,13 +10,20 @@ type Props = {
 };
 
 // 動的なメタデータを生成するための関数
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // 親からメタデータを継承
+  const parentMetadata = await parent;
   const { id } = await params;
+
   const imageInfo = getImageInfoById(id);
   const imageUrl = getImageUrl(imageInfo.path);
 
+  // 親のメタデータから継承して、必要なものだけ上書き
   return {
-    title: `Page ${id}`,
+    title: `Page ${id} | ${parentMetadata.title?.absolute || "Next.js Sandbox App"}`,
     description: `This is the page for ID: ${id}`,
     openGraph: {
       title: `Page ${id}`,

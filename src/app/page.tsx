@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+// トップページ固有のメタデータを設定
+export const metadata: Metadata = {
+  title: "Next.js Sandbox App - Home",
+  description: "Next.jsのサンドボックスアプリケーションのホームページです",
+};
 
 export default function Home() {
   return (
