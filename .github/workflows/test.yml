@@ -1,0 +1,31 @@
+name: Run test on PR
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        # npm ci と同等のコマンドは pnpm install --frozen-lockfile だが、CIではデフォルトでtrueとなる
+        # 参考：https://pnpm.io/ja/cli/install#--frozen-lockfile
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm test
